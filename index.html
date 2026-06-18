@@ -93,6 +93,77 @@
             letter-spacing: 1px;
         }
 
+        /* Luxury Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--brand-black);
+            border: 1px solid var(--brand-gold);
+            padding: 3rem 2rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            color: var(--brand-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-text {
+            font-size: 0.95rem;
+            color: #CCCCCC;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .modal-close {
+            background: transparent;
+            color: var(--brand-gold);
+            border: 1px solid var(--brand-gold);
+            padding: 0.75rem 2rem;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--brand-gold);
+            color: var(--brand-black);
+        }
+
+
         /* Notification Form */
         .notify-form {
             display: flex;
