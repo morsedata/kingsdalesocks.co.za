@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kingsdale Emporio | Luxury Apparel & Custom Socks</title>
+    <meta name="description" content="Kingsdale Emporio - Premium luxury socks and apparel designed in Cape Town, South Africa. Expect the extraordinary.">
+
+    <!-- Favicon / Tab Icon -->
+    <link rel="icon" href="KE_Logo.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="KE_Logo.jpg">
+
+    <!-- Premium Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-black: #050505;
+            --brand-gold: #D4AF37;
+            --brand-gold-dim: rgba(212, 175, 55, 0.6);
+            --brand-white: #F8F8F8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--brand-black);
+            color: var(--brand-white);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle Background Glow */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeIn 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .logo {
+            width: 250px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.5));
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--brand-gold);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        p.subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            color: #CCCCCC;
+            letter-spacing: 1px;
+        }
+
+        /* Notification Form */
+        .notify-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 600px) {
+            .notify-form {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        input[type="email"] {
+            padding: 1rem 1.5rem;
+            width: 100%;
+            max-width: 350px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--brand-gold-dim);
+            color: var(--brand-white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--brand-gold);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        button {
+            padding: 1rem 2.5rem;
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            border: 1px solid var(--brand-gold);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: transparent;
+            color: var(--brand-gold);
+        }
+
+        .success-message {
+            display: none;
+            color: var(--brand-gold);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer / Socials */
+        footer {
+            margin-top: auto;
+            padding-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--brand-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--brand-gold);
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: #777;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+	
+	/* WhatsApp Floating Bubble */
+        .whatsapp-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366; /* Classic WhatsApp Green for instant recognition */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.1);
+            z-index: 100;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            text-decoration: none;
+            animation: fadeIn 1.5s ease-out forwards 1s; /* Delayed fade-in */
+            opacity: 0;
+        }
+
+        .whatsapp-bubble svg {
+            width: 35px;
+            height: 35px;
+        }
+
+        .whatsapp-bubble:hover {
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4), 0 0 0 1px var(--brand-gold);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .whatsapp-bubble {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            .whatsapp-bubble svg {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Exact implementation of the provided logo asset -->
+        <img src="KE_Logo.jpg" alt="Kingsdale Emporio Cape Town Logo" class="logo">
+        
+        <h1>Curating the Extraordinary</h1>
+        <p class="subtitle">Premium lifestyle and custom apparel. Founded in Cape Town.<br>Our new digital flagship is currently being tailored.</p>
+        
+        <form class="notify-form" id="notifyForm">
+            <input type="email" id="emailInput" placeholder="Enter your email for exclusive access" required>
+            <button type="submit">Notify Me</button>
+        </form>
+        <div class="success-message" id="successMessage">Welcome to the inner circle. We will be in touch.</div>
+    </div>
+
+<!-- WhatsApp Floating Bubble -->
+    <a href="https://wa.me/27768345656?text=Hello%20Kingsdale%20Emporio!%20I%20am%20reaching%20out%20from%20your%20website%20and%20would%20like%20more%20information." 
+       class="whatsapp-bubble" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       aria-label="Chat with us on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <!-- FontAwesome WhatsApp SVG Path -->
+            <path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.6-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.instagram.com/kingsdale_emporio" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.facebook.com/kingsdaleemporio/" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href="https://x.com/KingsdalEmporio" target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+        <div class="copyright">
+            &copy; <span id="year"></span> KINGSDALE EMPORIO. ALL RIGHTS RESERVED.
+        </div>
+    </footer>
+
+    <script>
+        // Set dynamic year for copyright
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Handle aesthetic form submission
+        const form = document.getElementById('notifyForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent actual submission since there is no backend yet
+            
+            // Fade out form and fade in success message
+            form.style.opacity = '0';
+            setTimeout(() => {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                successMessage.style.animation = 'fadeIn 1s ease-out forwards';
+            }, 300);
+        });
+    </script>
+</body>
+</html>
