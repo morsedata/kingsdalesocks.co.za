@@ -13,7 +13,7 @@
     <!-- Premium Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -60,7 +60,7 @@
         .container {
             position: relative;
             z-index: 1;
-            max-width: 800px;
+            max-width: 900px; /* Widened slightly for the new text */
             padding: 2rem;
             animation: fadeIn 1.5s ease-out forwards;
             opacity: 0;
@@ -74,23 +74,62 @@
             border-radius: 50%;
         }
 
+        /* New Typography Cascade */
         h1 {
             font-family: 'Cinzel', serif;
             color: var(--brand-gold);
             font-size: clamp(2rem, 5vw, 4rem);
             font-weight: 700;
             letter-spacing: 2px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
 
-        p.subtitle {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            font-weight: 300;
-            line-height: 1.6;
+        h2.sub-header {
+            font-family: 'Cinzel', serif;
+            color: var(--brand-white);
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 500;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        p.tagline {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--brand-gold);
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            font-weight: 400;
+            letter-spacing: 3px;
             margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        /* Brand Story Container */
+        .brand-story {
+            max-width: 680px;
+            margin: 0 auto 3rem auto;
             color: #CCCCCC;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .brand-story p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* The Coming Soon Highlight */
+        .brand-story p.highlight {
+            margin-bottom: 0;
+            color: var(--brand-white);
+            font-weight: 400;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            font-family: 'Cinzel', serif;
             letter-spacing: 1px;
+            font-size: 1.1rem;
         }
 
         /* Luxury Modal Styles */
@@ -163,7 +202,6 @@
             color: var(--brand-black);
         }
 
-
         /* Notification Form */
         .notify-form {
             display: flex;
@@ -217,14 +255,6 @@
             color: var(--brand-gold);
         }
 
-        .success-message {
-            display: none;
-            color: var(--brand-gold);
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            margin-top: 1rem;
-        }
-
         /* Footer / Socials */
         footer {
             margin-top: auto;
@@ -270,15 +300,15 @@
                 transform: translateY(0);
             }
         }
-	
-	/* WhatsApp Floating Bubble */
+    
+        /* WhatsApp Floating Bubble */
         .whatsapp-bubble {
             position: fixed;
             bottom: 30px;
             right: 30px;
             width: 60px;
             height: 60px;
-            background-color: #25D366; /* Classic WhatsApp Green for instant recognition */
+            background-color: #25D366; 
             color: white;
             border-radius: 50%;
             display: flex;
@@ -288,7 +318,7 @@
             z-index: 100;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
             text-decoration: none;
-            animation: fadeIn 1.5s ease-out forwards 1s; /* Delayed fade-in */
+            animation: fadeIn 1.5s ease-out forwards 1s;
             opacity: 0;
         }
 
@@ -324,10 +354,16 @@
         <img src="KE_Logo.jpg" alt="Kingsdale Emporio Cape Town Logo" class="logo">
         
         <h1>Curating the Extraordinary</h1>
-        <p class="subtitle">Premium lifestyle and custom apparel. Founded in Cape Town.<br>Our new digital flagship is currently being tailored.</p>
+        <h2 class="sub-header">Kingsdale Emporio</h2>
+        <p class="tagline">Bespoke Elegance. Born in Cape Town.</p>
+        
+        <div class="brand-story">
+            <p>Since 2013, Kingsdale Emporio has redefined the sartorial details of the modern wardrobe. Renowned for our signature collection of bold, premium socks, we seamlessly blend uncompromising luxury with uncompromising design.</p>
+            <p>Our expertise extends beyond personal style to elevate your brand's narrative. We specialize in crafting bespoke, branded hosiery for exclusive corporate gifting, premier events, and discerning businesses, alongside a meticulously curated portfolio of custom lifestyle apparel.</p>
+            <p class="highlight">Our new digital flagship is currently being tailored to perfection. Please return shortly to experience the pinnacle of custom apparel.</p>
+        </div>
         
         <form class="notify-form" id="notifyForm" name="submit-to-google-sheet">
-            <!-- Added name="email" which is required for the script to catch it -->
             <input type="email" name="email" id="emailInput" placeholder="Enter your email for exclusive access" required>
             <button type="submit" id="submitBtn">Notify Me</button>
         </form>
@@ -349,7 +385,6 @@
        rel="noopener noreferrer" 
        aria-label="Chat with us on WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <!-- FontAwesome WhatsApp SVG Path -->
             <path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157.1zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.6-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
         </svg>
     </a>
@@ -370,31 +405,24 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // Data Pipeline & UI Logic
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxC-fDnWNscNvxUYs6nIsivbDNpKyM7Spzhr6vIbKsUpL7Ct9jnSytcO7aJY3uq7s3i/exec'; //[cite: 1]
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxC-fDnWNscNvxUYs6nIsivbDNpKyM7Spzhr6vIbKsUpL7Ct9jnSytcO7aJY3uq7s3i/exec'; 
         const form = document.forms['submit-to-google-sheet'];
         const submitBtn = document.getElementById('submitBtn');
         const modal = document.getElementById('successModal');
         const closeModalBtn = document.getElementById('closeModalBtn');
 
         form.addEventListener('submit', e => {
-            e.preventDefault(); // Stop normal form submission
+            e.preventDefault(); 
             
-            // UX enhancement: Show loading state
             const originalBtnText = submitBtn.textContent;
             submitBtn.textContent = 'Curating...';
             submitBtn.style.opacity = '0.7';
             submitBtn.disabled = true;
 
-            // Send data to Google Sheet
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                 .then(response => {
-                    // Show custom success popup
                     modal.classList.add('active');
-                    
-                    // Clear the form
                     form.reset();
-                    
-                    // Reset button state
                     submitBtn.textContent = originalBtnText;
                     submitBtn.style.opacity = '1';
                     submitBtn.disabled = false;
@@ -402,20 +430,16 @@
                 .catch(error => {
                     console.error('Error!', error.message);
                     alert("There was an error connecting to our servers. Please try again.");
-                    
-                    // Reset button state
                     submitBtn.textContent = originalBtnText;
                     submitBtn.style.opacity = '1';
                     submitBtn.disabled = false;
                 });
         });
 
-        // Close Modal Logic
         closeModalBtn.addEventListener('click', () => {
             modal.classList.remove('active');
         });
 
-        // Close Modal if user clicks outside the box
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('active');
