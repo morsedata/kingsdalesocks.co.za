@@ -342,7 +342,7 @@
         </div>
     </div>
 
-<!-- WhatsApp Floating Bubble -->
+    <!-- WhatsApp Floating Bubble -->
     <a href="https://wa.me/27768345656?text=Hello%20Kingsdale%20Emporio!%20I%20am%20reaching%20out%20from%20your%20website%20and%20would%20like%20more%20information." 
        class="whatsapp-bubble" 
        target="_blank" 
@@ -369,20 +369,57 @@
         // Set dynamic year for copyright
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Handle aesthetic form submission
-        const form = document.getElementById('notifyForm');
-        const successMessage = document.getElementById('successMessage');
+        // Data Pipeline & UI Logic
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxC-fDnWNscNvxUYs6nIsivbDNpKyM7Spzhr6vIbKsUpL7Ct9jnSytcO7aJY3uq7s3i/exec'; //[cite: 1]
+        const form = document.forms['submit-to-google-sheet'];
+        const submitBtn = document.getElementById('submitBtn');
+        const modal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent actual submission since there is no backend yet
+        form.addEventListener('submit', e => {
+            e.preventDefault(); // Stop normal form submission
             
-            // Fade out form and fade in success message
-            form.style.opacity = '0';
-            setTimeout(() => {
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
-                successMessage.style.animation = 'fadeIn 1s ease-out forwards';
-            }, 300);
+            // UX enhancement: Show loading state
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Curating...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.disabled = true;
+
+            // Send data to Google Sheet
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    // Show custom success popup
+                    modal.classList.add('active');
+                    
+                    // Clear the form
+                    form.reset();
+                    
+                    // Reset button state
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.opacity = '1';
+                    submitBtn.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert("There was an error connecting to our servers. Please try again.");
+                    
+                    // Reset button state
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.style.opacity = '1';
+                    submitBtn.disabled = false;
+                });
+        });
+
+        // Close Modal Logic
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Close Modal if user clicks outside the box
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
         });
     </script>
 </body>
