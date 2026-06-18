@@ -70,11 +70,11 @@
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
-        
+
         .container {
             position: relative;
             z-index: 1;
-            max-width: 900px; /* Widened slightly for the new text */
+            max-width: 900px;
             padding: 2rem;
             animation: fadeIn 1.5s ease-out forwards;
             opacity: 0;
@@ -88,7 +88,7 @@
             border-radius: 50%;
         }
 
-        /* New Typography Cascade */
+        /* Typography Cascade */
         h1 {
             font-family: 'Cinzel', serif;
             color: var(--brand-gold);
@@ -133,7 +133,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* The Coming Soon Highlight */
         .brand-story p.highlight {
             margin-bottom: 0;
             color: var(--brand-white);
@@ -144,6 +143,83 @@
             font-family: 'Cinzel', serif;
             letter-spacing: 1px;
             font-size: 1.1rem;
+        }
+
+        /* Notification Form */
+        .notify-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 600px) {
+            .notify-form {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        input[type="email"] {
+            padding: 1rem 1.5rem;
+            width: 100%;
+            max-width: 350px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--brand-gold-dim);
+            color: var(--brand-white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--brand-gold);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        button {
+            padding: 1rem 2.5rem;
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            border: 1px solid var(--brand-gold);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: transparent;
+            color: var(--brand-gold);
+        }
+
+        /* Contact Info Section */
+        .contact-info {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            color: #888;
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--brand-gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--brand-white);
         }
 
         /* Luxury Modal Styles */
@@ -214,59 +290,6 @@
         .modal-close:hover {
             background: var(--brand-gold);
             color: var(--brand-black);
-        }
-
-        /* Notification Form */
-        .notify-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        @media (min-width: 600px) {
-            .notify-form {
-                flex-direction: row;
-                justify-content: center;
-            }
-        }
-
-        input[type="email"] {
-            padding: 1rem 1.5rem;
-            width: 100%;
-            max-width: 350px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--brand-gold-dim);
-            color: var(--brand-white);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        input[type="email"]:focus {
-            border-color: var(--brand-gold);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        button {
-            padding: 1rem 2.5rem;
-            background: var(--brand-gold);
-            color: var(--brand-black);
-            border: 1px solid var(--brand-gold);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: transparent;
-            color: var(--brand-gold);
         }
 
         /* Footer / Socials */
@@ -381,6 +404,15 @@
             <input type="email" name="email" id="emailInput" placeholder="Enter your email for exclusive access" required>
             <button type="submit" id="submitBtn">Notify Me</button>
         </form>
+
+        <!-- Direct Contact Information -->
+        <div class="contact-info">
+            <p>FOR IMMEDIATE INQUIRIES & CORPORATE GIFTING</p>
+            <p>
+                <a href="mailto:info@kingsdalesocks.co.za">info@kingsdalesocks.co.za</a> | 
+                <a href="tel:+27768345656">+27 76 834 5656</a>
+            </p>
+        </div>
     </div>
 
     <!-- Luxury Popup Modal -->
