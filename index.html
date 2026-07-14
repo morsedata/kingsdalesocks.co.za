@@ -86,7 +86,10 @@
   }
   .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; }
   .brand { display: flex; align-items: center; gap: 15px; }
+  .brand-logo { height: 44px; width: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-dim, var(--hairline)); flex-shrink: 0; }
   .brand-name { font-family: var(--display); font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  .foot-brand-head { display: flex; align-items: center; gap: 14px; }
+  .foot-brand-head .brand-logo { height: 36px; width: 36px; }
 
   nav.links { display: flex; gap: 40px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
   nav.links a { position: relative; padding: 4px 0; opacity: 0.8; transition: opacity 0.3s, color 0.3s; }
@@ -330,6 +333,7 @@
 <header>
   <div class="nav">
     <div class="brand">
+      <img src="assets/logo.png" alt="Kingsdale Emporio crest" class="brand-logo">
       <div class="brand-name">Kingsdale Emporio</div>
     </div>
     <nav class="links">
@@ -470,7 +474,10 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <div class="brand-name">Kingsdale Emporio</div>
+        <div class="foot-brand-head">
+          <img src="assets/logo.png" alt="Kingsdale Emporio crest" class="brand-logo">
+          <div class="brand-name">Kingsdale Emporio</div>
+        </div>
         <p>Curating the extraordinary in luxury socks, lifestyle apparel and bespoke corporate gifting. Born in Cape Town.</p>
         <div class="foot-socials">
           <a href="https://www.instagram.com/kingsdale_emporio/" target="_blank" rel="noopener" aria-label="Instagram">
