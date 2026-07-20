@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Catalogue | Kingsdale Emporio</title>
+<meta name="description" content="Explore the Kingsdale Emporio interactive lifestyle and sock catalogue.">
+
+<!-- Premium Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* -------------------------------------------------------------
+     BASE STYLES IMPORTED FROM HOMEPAGE 
+  ------------------------------------------------------------- */
+  :root {
+    --display: 'Cinzel', serif;
+    --body: 'Montserrat', sans-serif;
+    --radius: 0px; 
+  }
+
+  html[data-theme="light"] {
+    --bg: #F8F8F8; --surface: #FFFFFF; --surface-alt: #EEEEEE;
+    --ink: #050505; --muted: #666666; --gold: #B8863F;
+    --gold-bright: #D4AF37; --hairline: rgba(5, 5, 5, 0.1);
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    --bg: #050505; --surface: #111111; --surface-alt: #1A1A1A;
+    --ink: #F8F8F8; --muted: #AAAAAA; --gold: #D4AF37;
+    --gold-bright: #EAC98B; --hairline: rgba(248, 248, 248, 0.15);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--body);
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+  
+  html[data-theme="dark"] body::after {
+      content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0.03; z-index: 9999; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 640px) { .wrap { padding: 0 20px; } }
+
+  .eyebrow {
+    font-family: var(--body); font-weight: 500; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--gold); display: inline-block; }
+
+  header {
+    position: sticky; top: 0; z-index: 60; background: var(--bg);
+    border-bottom: 1px solid var(--hairline); transition: background 0.5s ease, border-color 0.5s ease;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; }
+  .brand { display: flex; align-items: center; gap: 15px; }
+  .brand-logo { height: 44px; width: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold-dim, var(--hairline)); flex-shrink: 0; }
+  .brand-name { font-family: var(--display); font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+  
+  .nav-right { display: flex; align-items: center; gap: 15px; }
+  .icon-btn {
+    background: none; border: 1px solid var(--hairline); color: var(--ink); width: 45px; height: 45px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.3s, color 0.3s; position: relative;
+  }
+  .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+  
+  #themeBtn { flex-direction: column; gap: 2px; }
+  #themeBtn .mode-label {
+    position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 0.55rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); white-space: nowrap;
+  }
+
+  .btn {
+    font-family: var(--body); font-weight: 600; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: 18px 36px; cursor: pointer; border: 1px solid transparent;
+    transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center;
+  }
+  .btn-ghost { border-color: var(--hairline); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-ghost:disabled { opacity: 0.3; cursor: not-allowed; border-color: var(--hairline); color: var(--muted); }
+
+  /* -------------------------------------------------------------
+     FLIPBOOK SPECIFIC STYLES 
+  ------------------------------------------------------------- */
+  .flipbook-section { padding: 80px 0; min-height: 80vh; }
+  .section-head { max-width: 700px; margin: 0 auto 40px; text-align: center; }
+  .section-head h2 { font-family: var(--display); font-weight: 600; font-size: clamp(1.7rem, 7vw, 3rem); letter-spacing: 1px; text-transform: uppercase; }
+  
+  .viewer-wrapper {
+    width: 100%;
+    max-width: 1100px; /* Max width of the open book */
+    height: 75vh;      /* Responsive height */
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid var(--hairline);
+    background: var(--surface);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Target the internal page-flip element */
+  #flipbook {
+    width: 100%;
+    height: 100%;
+  }
+
+  .page {
+    background-color: #fff;
+    overflow: hidden;
+  }
+  
+  .page canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Ensures canvas scales to the stretched page size */
+  }
+
+  /* Viewer Controls */
+  .viewer-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  
+  .page-counter {
+    font-family: var(--body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .page-counter span { color: var(--gold); font-weight: 700; }
+
+  /* Loading State */
+  #loadingState {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; gap: 15px;
+  }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 2px solid var(--hairline); border-top-color: var(--gold);
+    border-radius: 50%; animation: spin 1s linear infinite;
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="Kingsdale Emporio crest" class="brand-logo" onerror="this.src='https://via.placeholder.com/44'">
+      <div class="brand-name">Kingsdale Emporio</div>
+    </a>
+    <div class="nav-right">
+      <a href="index.html" class="btn btn-ghost" style="padding: 10px 20px; font-size: 0.7rem;">&larr; Back to Home</a>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"></svg>
+        <span class="mode-label" id="modeLabel">Dark</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="flipbook-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" style="justify-content:center;">The Details</div>
+      <h2>Interactive Catalogue</h2>
+    </div>
+
+    <!-- Flipbook Container -->
+    <div class="viewer-wrapper">
+      <div id="loadingState">
+        <div class="spinner"></div>
+        <div class="eyebrow">Rendering Pages...</div>
+      </div>
+      <div id="flipbook"></div>
+    </div>
+
+    <!-- Flipbook Controls -->
+    <div class="viewer-controls">
+      <button id="btnPrev" class="btn btn-ghost" disabled>&larr; Prev</button>
+      <div class="page-counter">Page <span id="currentPage">0</span> / <span id="totalPages">0</span></div>
+      <button id="btnNext" class="btn btn-ghost" disabled>Next &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<!-- Include PDF.js and StPageFlip scripts from your local assets -->
+<script src="assets/js/pdf.js"></script>
+<script src="assets/js/page-flip.browser.js"></script>
+
+<script>
+  // -------------------------------------------------------------
+  // THEME ENGINE LOGIC (Retained from homepage)
+  // -------------------------------------------------------------
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const themeIcon = document.getElementById('themeIcon');
+  const modeLabel = document.getElementById('modeLabel');
+
+  const SUN = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/>';
+  const MOON = '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>';
+
+  function applyTheme(mode) {
+    root.setAttribute('data-theme', mode);
+    themeIcon.innerHTML = mode === 'dark' ? MOON : SUN;
+    modeLabel.textContent = mode === 'dark' ? 'Dark' : 'Light';
+  }
+
+  function renderTheme() {
+    const mode = localStorage.getItem('kingsdale-theme') || 'dark';
+    applyTheme(mode);
+  }
+
+  themeBtn.addEventListener('click', () => {
+    const current = localStorage.getItem('kingsdale-theme') || 'dark';
+    const next = current === 'light' ? 'dark' : 'light';
+    localStorage.setItem('kingsdale-theme', next);
+    renderTheme();
+  });
+
+  renderTheme();
+
+  // -------------------------------------------------------------
+  // FLIPBOOK LOGIC
+  // Replace the URL below to swap PDFs later without touching logic.
+  // -------------------------------------------------------------
+  const CONFIG = {
+    pdfUrl: 'assets/kingsdale-catalogue.pdf', 
+    pdfWorkerUrl: 'assets/js/pdf.worker.js',
+    renderScale: 1.5 // Increase for sharper text, decrease for better performance
+  };
+
+  // Configure PDF.js worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc = CONFIG.pdfWorkerUrl;
+
+  async function initFlipbook() {
+    try {
+      const loadingTask = pdfjsLib.getDocument(CONFIG.pdfUrl);
+      const pdf = await loadingTask.promise;
+      const numPages = pdf.numPages;
+      const flipbookContainer = document.getElementById('flipbook');
+      
+      // Determine base dimensions from Page 1 to ensure correct aspect ratio
+      const firstPage = await pdf.getPage(1);
+      const viewportData = firstPage.getViewport({ scale: 1.0 });
+      const baseWidth = viewportData.width;
+      const baseHeight = viewportData.height;
+
+      // Render each page into a canvas
+      for (let i = 1; i <= numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: CONFIG.renderScale });
+        
+        const pageWrapper = document.createElement('div');
+        pageWrapper.className = 'page';
+        
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        
+        // Wait for page to render before moving to the next (saves memory)
+        await page.render({ canvasContext: context, viewport: viewport }).promise;
+        
+        pageWrapper.appendChild(canvas);
+        flipbookContainer.appendChild(pageWrapper);
+      }
+
+      // Hide loading spinner
+      document.getElementById('loadingState').style.display = 'none';
+
+      // Initialize StPageFlip
+      const pageFlip = new StPageFlip.PageFlip(flipbookContainer, {
+        width: baseWidth,       // Base width required for correct calculations
+        height: baseHeight,     // Base height required for correct calculations
+        size: "stretch",        // Stretches to fit .viewer-wrapper, maintains aspect ratio
+        minWidth: 300,
+        maxWidth: 1000,
+        minHeight: 400,
+        maxHeight: 1350,
+        showCover: true,        // Treat first page as a hardcover
+        mobileScrollSupport: false,
+        useMouseEvents: true    // Enables click/drag/swipe
+      });
+
+      // Load the dynamically created HTML canvases
+      pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+      // -------------------------------------------------------------
+      // UI Controls Logic
+      // -------------------------------------------------------------
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const currentPageEl = document.getElementById('currentPage');
+      
+      document.getElementById('totalPages').textContent = pageFlip.getPageCount();
+      btnNext.disabled = false; // Enable next button once loaded
+      currentPageEl.textContent = "1";
+
+      // Bind buttons to pageFlip API
+      btnPrev.addEventListener('click', () => pageFlip.flipPrev());
+      btnNext.addEventListener('click', () => pageFlip.flipNext());
+
+      // Update counters & button states on flip
+      pageFlip.on('flip', (e) => {
+        const currentIdx = e.data; // Index starts at 0
+        currentPageEl.textContent = currentIdx + 1;
+        
+        // Disable Prev button if on first page
+        btnPrev.disabled = currentIdx === 0;
+        // Disable Next button if on last page (or viewing the final spread)
+        btnNext.disabled = currentIdx >= pageFlip.getPageCount() - 1;
+      });
+
+    } catch (error) {
+      console.error("Error loading PDF Flipbook:", error);
+      document.getElementById('loadingState').innerHTML = `<div class="eyebrow" style="color: red;">Error loading catalogue. Please check the file path.</div>`;
+    }
+  }
+
+  // Run initialisation
+  initFlipbook();
+</script>
+
+</body>
+</html>
